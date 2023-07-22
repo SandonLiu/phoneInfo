@@ -54,6 +54,17 @@ public class SdInputController extends BaseController {
     }
 
     /**
+     * 清空数据
+     *
+     * @return
+     */
+    @GetMapping("/truncate")
+    public AjaxResult truncateTable() {
+        return AjaxResult.success(sdInputService.truncateTable());
+    }
+
+
+    /**
      * 查询导入电话号列表
      */
     @PreAuthorize("@ss.hasPermi('system:input:list')")

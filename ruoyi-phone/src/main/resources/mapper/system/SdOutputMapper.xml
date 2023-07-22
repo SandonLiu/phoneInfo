@@ -33,14 +33,14 @@
         <include refid="selectSdOutputVo"/>
         <where>
             <if test="phone != null  and phone != ''">and phone like concat(#{phone},'%')</if>
-            <if test="phone3 != null  and phone3 != ''">and phone_3 like concat('%',#{phone3},'%')</if>
-            <if test="phone7 != null  and phone7 != ''">and phone_7 like concat('%',#{phone7},'%')</if>
+            <if test="phone3 != null  and phone3 != ''">and phone_3 like concat(#{phone3},'%')</if>
+            <if test="phone7 != null  and phone7 != ''">and phone_7 like concat(#{phone7},'%')</if>
             <if test="province != null  and province != ''">and province like concat('%',#{province},'%')</if>
-            <if test="city != null  and city != ''">and city like concat('%',#{city,'%')}</if>
+            <if test="city != null  and city != ''">and city like concat('%',#{city},'%')</if>
             <if test="isp != null  and isp != ''">and isp like concat('%',#{isp},'%')</if>
-            <if test="postCode != null  and postCode != ''">and post_code like concat('%',#{postCode},'%')</if>
-            <if test="cityCode != null  and cityCode != ''">and city_code like concat('%',#{cityCode},'%')</if>
-            <if test="areaCode != null  and areaCode != ''">and area_code like concat('%',#{areaCode},'%')</if>
+            <if test="postCode != null  and postCode != ''">and post_code like concat(#{postCode},'%')</if>
+            <if test="cityCode != null  and cityCode != ''">and city_code like concat(#{cityCode},'%')</if>
+            <if test="areaCode != null  and areaCode != ''">and area_code like concat(#{areaCode},'%')</if>
         </where>
     </select>
 

@@ -43,6 +43,14 @@ export function delInput(phone) {
   })
 }
 
+// 清空数据
+export function truncate() {
+  return request({
+    url: '/system/input/truncate',
+    method: 'get'
+  })
+}
+
 // 下载导入模板
 export function importTemplate() {
   return request({

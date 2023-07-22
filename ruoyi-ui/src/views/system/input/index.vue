@@ -3,11 +3,14 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="info" icon="el-icon-upload2" size="mini" @click="handleImport">导入</el-button>
+        <el-button type="success" icon="el-icon-upload2" size="mini" @click="handleImport">导入</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport"
-          v-hasPermi="['system:input:export']">输入结果导出</el-button>
+          v-hasPermi="['system:input:export']">导出输入结果</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="info" icon="el-icon-close" size="mini" @click="truncate">清空数据</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -55,7 +58,7 @@
 
 <script>
 
-import { listInput, getInput, delInput, addInput, updateInput } from "@/api/system/input";
+import { listInput, getInput, delInput, addInput, updateInput, truncate } from "@/api/system/input";
 /** 获取token */
 import { getToken } from "@/utils/auth";
 // 导入模板接口importTemplate
@@ -216,6 +219,13 @@ export default {
       this.upload.open = true;
     },
 
+    /** 清空上传数据 */
+    truncate() {
+      truncate().then(response => {
+        this.getList();
+        this.$alert("上传数据已清空");
+      })
+    },
 
     /** 下载模板操作 */
     importTemplate() {
@@ -240,22 +250,8 @@ export default {
     // 提交上传文件
     submitFileForm() {
       this.$refs.upload.submit();
+      this.$alert("【提示】：请耐心等待，当表格刷新时表示数据已处理结束");
     },
-
-    // /** 导出按钮操作 */
-    // handleExport() {
-    //   const queryParams = this.queryParams;
-    //   this.$confirm('是否确认导出所有用户数据项?', "警告", {
-    //     confirmButtonText: "确定",
-    //     cancelButtonText: "取消",
-    //     type: "warning"
-    //   }).then(function () {
-    //     return exportUser(queryParams);
-    //   }).then(response => {
-    //     this.download(response.msg);
-    //   }).catch(function () { });
-    // }
-
   }
 };
 </script>
