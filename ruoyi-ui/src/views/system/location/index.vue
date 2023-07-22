@@ -72,7 +72,7 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <!-- <el-col :span="1.5">
+      <el-col :span="1.5">
         <el-button
           type="primary"
           plain
@@ -103,8 +103,8 @@
           @click="handleDelete"
           v-hasPermi="['system:location:remove']"
         >删除</el-button>
-      </el-col> -->
-      <!-- <el-col :span="1.5">
+      </el-col>
+      <el-col :span="1.5">
         <el-button
           type="warning"
           plain
@@ -113,7 +113,7 @@
           @click="handleExport"
           v-hasPermi="['system:location:export']"
         >导出</el-button>
-      </el-col> -->
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -128,7 +128,7 @@
       <el-table-column label="身份证前缀" align="center" prop="postCode" />
       <el-table-column label="区号" align="center" prop="cityCode" />
       <el-table-column label="区域代码" align="center" prop="areaCode" />
-      <!-- <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -145,7 +145,7 @@
             v-hasPermi="['system:location:remove']"
           >删除</el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
     
     <pagination

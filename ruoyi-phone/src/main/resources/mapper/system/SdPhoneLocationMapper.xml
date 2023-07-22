@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SdPhoneLocationMapper">
+    
+    <resultMap type="SdPhoneLocation" id="SdPhoneLocationResult">
+        <result property="id"    column="id"    />
+        <result property="pref"    column="pref"    />
+        <result property="phone"    column="phone"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="isp"    column="isp"    />
+        <result property="postCode"    column="post_code"    />
+        <result property="cityCode"    column="city_code"    />
+        <result property="areaCode"    column="area_code"    />
+    </resultMap>
+
+    <sql id="selectSdPhoneLocationVo">
+        select id,
+               pref,
+               phone,
+               province,
+               city,
+               isp,
+               post_code,
+               city_code,
+               area_code
+        from sd_phone_location
+    </sql>
+
+    <select id="selectSdPhoneLocationList" parameterType="SdPhoneLocation" resultMap="SdPhoneLocationResult">
+        <include refid="selectSdPhoneLocationVo"/>
+        <where>  
+            <if test="pref != null  and pref != ''"> and pref = #{pref}</if>
+            <if test="phone != null  and phone != ''"> and phone like concat(#{phone},'%')</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="isp != null  and isp != ''"> and isp = #{isp}</if>
+            <if test="postCode != null  and postCode != ''"> and post_code = #{postCode}</if>
+            <if test="cityCode != null  and cityCode != ''"> and city_code = #{cityCode}</if>
+            <if test="areaCode != null  and areaCode != ''"> and area_code = #{areaCode}</if>
+        </where>
+    </select>
+    
+    <select id="selectSdPhoneLocationById" parameterType="String" resultMap="SdPhoneLocationResult">
+        <include refid="selectSdPhoneLocationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSdPhoneLocation" parameterType="SdPhoneLocation" useGeneratedKeys="true" keyProperty="id">
+        insert into sd_phone_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pref != null">pref,</if>
+            <if test="phone != null">phone,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="isp != null">isp,</if>
+            <if test="postCode != null">post_code,</if>
+            <if test="cityCode != null">city_code,</if>
+            <if test="areaCode != null">area_code,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pref != null">#{pref},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="isp != null">#{isp},</if>
+            <if test="postCode != null">#{postCode},</if>
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSdPhoneLocation" parameterType="SdPhoneLocation">
+        update sd_phone_location
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pref != null">pref = #{pref},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="isp != null">isp = #{isp},</if>
+            <if test="postCode != null">post_code = #{postCode},</if>
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSdPhoneLocationById" parameterType="String">
+        delete from sd_phone_location where id = #{id}
+    </delete>
+
+    <delete id="deleteSdPhoneLocationByIds" parameterType="String">
+        delete from sd_phone_location where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
