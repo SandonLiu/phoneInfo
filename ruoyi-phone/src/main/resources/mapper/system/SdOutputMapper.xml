@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SdOutputMapper">
+
+    <resultMap type="SdOutput" id="SdOutputResult">
+        <result property="phone" column="phone"/>
+        <result property="phone3" column="phone_3"/>
+        <result property="phone7" column="phone_7"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="isp" column="isp"/>
+        <result property="postCode" column="post_code"/>
+        <result property="cityCode" column="city_code"/>
+        <result property="areaCode" column="area_code"/>
+    </resultMap>
+
+    <sql id="selectSdOutputVo">
+        select phone,
+               phone_3,
+               phone_7,
+               province,
+               city,
+               isp,
+               post_code,
+               city_code,
+               area_code
+        from sd_output
+    </sql>
+
+    <select id="selectSdOutputList" parameterType="SdOutput" resultMap="SdOutputResult">
+        <include refid="selectSdOutputVo"/>
+        <where>
+            <if test="phone != null  and phone != ''">and phone like concat(#{phone},'%')</if>
+            <if test="phone3 != null  and phone3 != ''">and phone_3 like concat('%',#{phone3},'%')</if>
+            <if test="phone7 != null  and phone7 != ''">and phone_7 like concat('%',#{phone7},'%')</if>
+            <if test="province != null  and province != ''">and province like concat('%',#{province},'%')</if>
+            <if test="city != null  and city != ''">and city like concat('%',#{city,'%')}</if>
+            <if test="isp != null  and isp != ''">and isp like concat('%',#{isp},'%')</if>
+            <if test="postCode != null  and postCode != ''">and post_code like concat('%',#{postCode},'%')</if>
+            <if test="cityCode != null  and cityCode != ''">and city_code like concat('%',#{cityCode},'%')</if>
+            <if test="areaCode != null  and areaCode != ''">and area_code like concat('%',#{areaCode},'%')</if>
+        </where>
+    </select>
+
+    <select id="selectSdOutputByPhone" parameterType="String" resultMap="SdOutputResult">
+        <include refid="selectSdOutputVo"/>
+        where phone = #{phone}
+    </select>
+
+    <insert id="insertSdOutput" parameterType="SdOutput">
+        insert into sd_output
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="phone != null">phone,</if>
+            <if test="phone3 != null">phone_3,</if>
+            <if test="phone7 != null">phone_7,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="isp != null">isp,</if>
+            <if test="postCode != null">post_code,</if>
+            <if test="cityCode != null">city_code,</if>
+            <if test="areaCode != null">area_code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="phone != null">#{phone},</if>
+            <if test="phone3 != null">#{phone3},</if>
+            <if test="phone7 != null">#{phone7},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="isp != null">#{isp},</if>
+            <if test="postCode != null">#{postCode},</if>
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="areaCode != null">#{areaCode},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSdOutput" parameterType="SdOutput">
+        update sd_output
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="phone3 != null">phone_3 = #{phone3},</if>
+            <if test="phone7 != null">phone_7 = #{phone7},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="isp != null">isp = #{isp},</if>
+            <if test="postCode != null">post_code = #{postCode},</if>
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="areaCode != null">area_code = #{areaCode},</if>
+        </trim>
+        where phone = #{phone}
+    </update>
+
+    <delete id="deleteSdOutputByPhone" parameterType="String">
+        delete
+        from sd_output
+        where phone = #{phone}
+    </delete>
+
+    <delete id="deleteSdOutputByPhones" parameterType="String">
+        delete from sd_output where phone in
+        <foreach item="phone" collection="array" open="(" separator="," close=")">
+            #{phone}
+        </foreach>
+    </delete>
+</mapper>

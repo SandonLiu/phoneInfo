@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SdInputMapper">
+
+    <resultMap type="SdInput" id="SdInputResult">
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <sql id="selectSdInputVo">
+        select phone
+        from sd_input
+    </sql>
+
+    <select id="selectSdInputList" parameterType="SdInput" resultMap="SdInputResult">
+        <include refid="selectSdInputVo"/>
+        <where>
+            <if test="phone != null  and phone != ''">and phone = #{phone}</if>
+        </where>
+    </select>
+
+    <select id="selectSdInputByPhone" parameterType="String" resultMap="SdInputResult">
+        <include refid="selectSdInputVo"/>
+        where phone = #{phone}
+    </select>
+
+    <insert id="insertSdInput" parameterType="SdInput">
+        insert into sd_input
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="phone != null">phone,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="phone != null">#{phone},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSdInput" parameterType="SdInput">
+        update sd_input
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+        where phone = #{phone}
+    </update>
+
+    <delete id="deleteSdInputByPhone" parameterType="String">
+        delete
+        from sd_input
+        where phone = #{phone}
+    </delete>
+
+    <delete id="deleteSdInputByPhones" parameterType="String">
+        delete from sd_input where phone in
+        <foreach item="phone" collection="array" open="(" separator="," close=")">
+            #{phone}
+        </foreach>
+    </delete>
+
+    <update id="truncateTable">
+        TRUNCATE TABLE sd_input
+    </update>
+</mapper>
